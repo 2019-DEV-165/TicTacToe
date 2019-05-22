@@ -58,6 +58,21 @@ class TicTacToeViewModel : ViewModel() {
         }
     }
 
+    private fun validateWinnerByColumn() {
+        IntRange(0, 2).forEach { index ->
+            when {
+                checkIndexIsNotEmpty(0, index) &&
+                        compareIndices(Pair(0, index), Pair(1, index), Pair(2, index))
+                -> {
+                    mMatchSummary = MatchSummary(
+                        matchStatus = MatchStatus.WIN_BY_COLUMN
+                    )
+                }
+            }
+        }
+    }
+
+
     private fun checkIndexIsNotEmpty(firstIndex: Int, secondIndex: Int) = getGameBoard()[firstIndex][secondIndex] > 0
 
     private fun compareIndices(
@@ -80,6 +95,7 @@ class TicTacToeViewModel : ViewModel() {
 
     private fun updateMatchSummary() {
         validateWinnerByRow()
+        validateWinnerByColumn()
     }
 
 }
