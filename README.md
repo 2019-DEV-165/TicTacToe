@@ -26,7 +26,7 @@ Tic-Tac-Toe is a classical paper-and-pencil game for 2 players. You were probabl
 
 * Android Studio (Preferable Version 3.0 and above)
 
-* Android SDK
+* Android SDK (Version 23 and above)
 
 * GIT Bash
 
