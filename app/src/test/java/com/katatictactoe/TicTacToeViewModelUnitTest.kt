@@ -94,6 +94,7 @@ class TicTacToeViewModelUnitTest {
                 GameBoardPosition.INDEX_BOTTOM_MIDDLE
             )
         )
+
         assertNotEquals(ticTacToeViewModel.getMatchSummary().matchStatus, MatchStatus.WIN_BY_COLUMN)
     }
 
