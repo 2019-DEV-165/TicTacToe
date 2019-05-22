@@ -72,6 +72,18 @@ class TicTacToeViewModel : ViewModel() {
         }
     }
 
+    private fun validateWinnerByDiagonal() {
+        when {
+            checkIndexIsNotEmpty(0, 0) && compareIndices(Pair(0, 0), Pair(1, 1), Pair(2, 2)) ||
+                    checkIndexIsNotEmpty(0, 2) && compareIndices(Pair(0, 2), Pair(1, 1), Pair(2, 0))
+            -> {
+                mMatchSummary = MatchSummary(
+                    matchStatus = MatchStatus.WIN_BY_DIAGONAL
+                )
+            }
+        }
+    }
+
 
     private fun checkIndexIsNotEmpty(firstIndex: Int, secondIndex: Int) = getGameBoard()[firstIndex][secondIndex] > 0
 
@@ -96,6 +108,7 @@ class TicTacToeViewModel : ViewModel() {
     private fun updateMatchSummary() {
         validateWinnerByRow()
         validateWinnerByColumn()
+        validateWinnerByDiagonal()
     }
 
 }
