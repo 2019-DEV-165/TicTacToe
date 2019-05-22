@@ -1,5 +1,6 @@
 package com.katatictactoe
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 
 class TicTacToeViewModel : ViewModel() {
@@ -74,6 +75,7 @@ class TicTacToeViewModel : ViewModel() {
                     isGameFinished = true
                     mMatchSummary = MatchSummary(
                         matchStatus = MatchStatus.WIN_BY_ROW,
+                        matchSummary = getWinnerByName(getCurrentPlayer()) + " " + WON_BY_ROW,
                         isValidMove = isValidMove
                     )
                 }
@@ -90,6 +92,7 @@ class TicTacToeViewModel : ViewModel() {
                     isGameFinished = true
                     mMatchSummary = MatchSummary(
                         matchStatus = MatchStatus.WIN_BY_COLUMN,
+                        matchSummary = getWinnerByName(getCurrentPlayer()) + " " + WON_BY_COLUMN,
                         isValidMove = isValidMove
                     )
                 }
@@ -105,6 +108,7 @@ class TicTacToeViewModel : ViewModel() {
                 isGameFinished = true
                 mMatchSummary = MatchSummary(
                     matchStatus = MatchStatus.WIN_BY_DIAGONAL,
+                    matchSummary = getWinnerByName(getCurrentPlayer()) + " " + WON_BY_DIAGONAL,
                     isValidMove = isValidMove
                 )
             }
@@ -121,10 +125,18 @@ class TicTacToeViewModel : ViewModel() {
                             mMatchSummary.matchStatus != MatchStatus.WIN_BY_DIAGONAL
                     -> mMatchSummary = MatchSummary(
                         matchStatus = MatchStatus.DRAW,
+                        matchSummary = MATCH_DRAWN,
                         isValidMove = isValidMove
                     )
                 }
             }
+        }
+    }
+
+    private fun getWinnerByName(player: Int): String {
+        return when (player) {
+            Player.PLAYER_X_ID -> Player.PLAYER_O_NAME
+            else -> Player.PLAYER_X_NAME
         }
     }
 
@@ -144,6 +156,16 @@ class TicTacToeViewModel : ViewModel() {
                 firstIndexValue == thirdIndexValue
     }
 
+    fun getPlayerIcon(context: Context): String {
+        return when {
+            getMatchSummary().isValidMove -> return when {
+                getCurrentPlayer() == Player.PLAYER_X_ID -> context.getString(R.string.player_o)
+                else -> context.getString(R.string.player_x)
+            }
+            else -> ""
+        }
+    }
+
     fun getMatchSummary(): MatchSummary {
         return mMatchSummary
     }
@@ -158,6 +180,10 @@ class TicTacToeViewModel : ViewModel() {
     companion object {
         private var GAME_MOVE_COUNTER = 0
         private var MAX_MOVE_COUNTER = 9
+        const val MATCH_DRAWN = "Match Drawn"
+        const val WON_BY_COLUMN = "Won by column"
+        const val WON_BY_ROW = "Won by row"
+        const val WON_BY_DIAGONAL = "Won diagonally"
     }
 
 
