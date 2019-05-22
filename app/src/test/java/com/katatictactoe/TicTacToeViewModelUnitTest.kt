@@ -124,6 +124,24 @@ class TicTacToeViewModelUnitTest {
         assertNotEquals(ticTacToeViewModel.getMatchSummary().matchStatus, MatchStatus.WIN_BY_DIAGONAL)
     }
 
+    @Test
+    fun testShouldCheckGameIsDrawWhenBothThePlayersExhaustingAllMoves() {
+        storePlayerMoves(
+            intArrayOf(
+                GameBoardPosition.INDEX_CENTER_MIDDLE,
+                GameBoardPosition.INDEX_TOP_LEFT,
+                GameBoardPosition.INDEX_TOP_MIDDLE,
+                GameBoardPosition.INDEX_BOTTOM_MIDDLE,
+                GameBoardPosition.INDEX_BOTTOM_LEFT,
+                GameBoardPosition.INDEX_TOP_RIGHT,
+                GameBoardPosition.INDEX_CENTER_LEFT,
+                GameBoardPosition.INDEX_CENTER_RIGHT,
+                GameBoardPosition.INDEX_BOTTOM_RIGHT
+            )
+        )
+        assertEquals(ticTacToeViewModel.getMatchSummary().matchStatus, MatchStatus.DRAW)
+    }
+
 
     private fun storePlayerMoves(indices: IntArray) {
         indices.forEach { index -> ticTacToeViewModel.storePlayerMoves(index) }

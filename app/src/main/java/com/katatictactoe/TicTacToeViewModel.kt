@@ -34,6 +34,7 @@ class TicTacToeViewModel : ViewModel() {
         if (isIndexAvailableForPlayerMove(index)) {
             updateGameBoardIndex(index, getCurrentPlayer())
             updateCurrentPlayer(getCurrentPlayer())
+            GAME_MOVE_COUNTER = GAME_MOVE_COUNTER.plus(1)
             updateMatchSummary()
         }
     }
@@ -84,6 +85,19 @@ class TicTacToeViewModel : ViewModel() {
         }
     }
 
+    private fun validateMatchDrawn() {
+        if (GAME_MOVE_COUNTER >= MAX_MOVE_COUNTER) {
+            when {
+                mMatchSummary.matchStatus != MatchStatus.WIN_BY_ROW &&
+                        mMatchSummary.matchStatus != MatchStatus.WIN_BY_COLUMN &&
+                        mMatchSummary.matchStatus != MatchStatus.WIN_BY_DIAGONAL
+                -> mMatchSummary = MatchSummary(
+                    matchStatus = MatchStatus.DRAW
+                )
+            }
+        }
+
+    }
 
     private fun checkIndexIsNotEmpty(firstIndex: Int, secondIndex: Int) = getGameBoard()[firstIndex][secondIndex] > 0
 
@@ -109,6 +123,13 @@ class TicTacToeViewModel : ViewModel() {
         validateWinnerByRow()
         validateWinnerByColumn()
         validateWinnerByDiagonal()
+        validateMatchDrawn()
     }
+
+    companion object {
+        private var GAME_MOVE_COUNTER = 0
+        private var MAX_MOVE_COUNTER = 9
+    }
+
 
 }
