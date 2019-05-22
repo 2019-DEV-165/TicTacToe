@@ -32,7 +32,15 @@ class TicTacToeViewModelUnitTest {
         ticTacToeViewModel.storePlayerMoves(GameBoardPosition.INDEX_TOP_MIDDLE)
         assertEquals(ticTacToeViewModel.getCurrentPlayer(), Player.PLAYER_O_ID)
         assertNotEquals(ticTacToeViewModel.getCurrentPlayer(), Player.PLAYER_X_ID)
+    }
 
+    @Test
+    fun testShouldCheckSwappingOfPlayerOToPlayerXAfterMoveSuccessfullyStored() {
+        ticTacToeViewModel.storePlayerMoves(GameBoardPosition.INDEX_TOP_LEFT)
+        assertEquals(ticTacToeViewModel.getCurrentPlayer(), Player.PLAYER_O_ID)
+        ticTacToeViewModel.storePlayerMoves(GameBoardPosition.INDEX_TOP_MIDDLE)
+        assertEquals(ticTacToeViewModel.getCurrentPlayer(), Player.PLAYER_X_ID)
+        assertNotEquals(ticTacToeViewModel.getCurrentPlayer(), Player.PLAYER_O_ID)
     }
 
 
