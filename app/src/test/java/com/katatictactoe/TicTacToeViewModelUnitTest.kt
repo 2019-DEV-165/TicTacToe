@@ -157,6 +157,21 @@ class TicTacToeViewModelUnitTest {
         assertEquals(ticTacToeViewModel.getMatchSummary().matchStatus, MatchStatus.WIN_BY_ROW)
     }
 
+    @Test
+    fun testShouldCheckNoMovesAllowedToAnyPlayerWhenOneOfThePlayerWinsTheMatch() {
+        storePlayerMoves(
+            intArrayOf(
+                GameBoardPosition.INDEX_TOP_LEFT,
+                GameBoardPosition.INDEX_CENTER_MIDDLE,
+                GameBoardPosition.INDEX_TOP_MIDDLE,
+                GameBoardPosition.INDEX_CENTER_RIGHT,
+                GameBoardPosition.INDEX_TOP_RIGHT
+            )
+        )
+        assertEquals(ticTacToeViewModel.getMatchSummary().matchStatus, MatchStatus.WIN_BY_ROW)
+        ticTacToeViewModel.storePlayerMoves(GameBoardPosition.INDEX_BOTTOM_RIGHT)
+        assertFalse(ticTacToeViewModel.getMatchSummary().isValidMove)
+    }
 
 
     private fun storePlayerMoves(indices: IntArray) {
