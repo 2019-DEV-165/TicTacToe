@@ -17,7 +17,7 @@ class TicTacToeViewModel : ViewModel() {
 
     private fun isIndexAvailableForPlayerMove(index: Int) = getGameBoardByIndex(index) == 0
 
-    private fun isGameNotFinishedOrMoveAvailable() = !isGameFinished && GAME_MOVE_COUNTER <= MAX_MOVE_COUNTER
+    private fun isGameNotFinishedAndMoveAvailable() = !isGameFinished && GAME_MOVE_COUNTER <= MAX_MOVE_COUNTER
 
     private fun updateGameBoardIndex(position: Int, playerTag: Int) {
         getGameBoard()[position / 3][position % 3] = playerTag
@@ -37,7 +37,7 @@ class TicTacToeViewModel : ViewModel() {
 
     fun storePlayerMoves(@GameBoardPosition.Position index: Int) {
         when {
-            isGameNotFinishedOrMoveAvailable() -> when {
+            isGameNotFinishedAndMoveAvailable() -> when {
                 isIndexAvailableForPlayerMove(index) -> {
                     updateGameBoardIndex(index, getCurrentPlayer())
                     updateCurrentPlayer(getCurrentPlayer())
