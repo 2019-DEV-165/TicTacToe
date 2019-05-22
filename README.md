@@ -1,6 +1,6 @@
 # TIC TAC TOE - Android - Kotlin Based Application
 
-Tic Tac Toe is a 2-player game. Each player takes turn to mark a segment with X or O depending on their turn.
+Tic-Tac-Toe is a classical paper-and-pencil game for 2 players. You were probably used to play Tic-Tac-Toe game during your childhood.
 
 ## Rules
 
