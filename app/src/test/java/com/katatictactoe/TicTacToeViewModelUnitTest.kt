@@ -57,6 +57,19 @@ class TicTacToeViewModelUnitTest {
         assertEquals(ticTacToeViewModel.getMatchSummary().matchStatus, MatchStatus.WIN_BY_ROW)
     }
 
+    @Test
+    fun testShouldDeclineWinIfAlternatePlayersPlayedOnTheSameRow() {
+        storePlayerMoves(
+            intArrayOf(
+                GameBoardPosition.INDEX_BOTTOM_LEFT,
+                GameBoardPosition.INDEX_BOTTOM_MIDDLE,
+                GameBoardPosition.INDEX_BOTTOM_RIGHT
+            )
+        )
+        assertNotEquals(ticTacToeViewModel.getMatchSummary().matchStatus, MatchStatus.WIN_BY_ROW)
+    }
+
+
 
     private fun storePlayerMoves(indices: IntArray) {
         indices.forEach { index -> ticTacToeViewModel.storePlayerMoves(index) }
